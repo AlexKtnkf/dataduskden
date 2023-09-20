@@ -1,0 +1,15 @@
+# Build stage using SDK
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /api
+
+# Copy everything and restore and publish
+COPY . ./
+RUN dotnet restore api.sln
+RUN dotnet publish api.sln -c Release -o out
+
+# Production stage using ASP.NET runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /api
+COPY --from=build-env /api/out .
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "DataDusk.API.dll"]

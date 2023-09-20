@@ -1,0 +1,15 @@
+ 
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.prod
+
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+

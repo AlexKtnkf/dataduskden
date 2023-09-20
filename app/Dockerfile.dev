@@ -1,0 +1,10 @@
+FROM node:16.15.1
+
+WORKDIR /app
+
+COPY package*.json yarn.lock ./
+
+RUN yarn install
+EXPOSE 5173
+
+ENTRYPOINT ["yarn", "dev"]

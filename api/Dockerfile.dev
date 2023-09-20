@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /api
+
+# Copy everything
+COPY ./ ./
+# Restore as distinct layers
+RUN dotnet restore
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "watch", "run", "--project", "DataDusk.Api/DataDusk.API.csproj", "--no-launch-profile"]
